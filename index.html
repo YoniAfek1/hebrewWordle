@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>נחשו את המילה</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="sparkle-layer" aria-hidden="true"></div>
+  <div class="diamond-glow" aria-hidden="true"></div>
+
+  <!-- Camera permission denied -->
+  <div id="camera-block" class="camera-block hidden">
+    <div class="camera-block-inner">
+      <div class="camera-icon" aria-hidden="true">📷</div>
+      <p class="camera-block-message">כדי לשחק חובה לאשר גישה למצלמה!</p>
+    </div>
+  </div>
+
+  <!-- Main game (hidden until camera granted) -->
+  <div id="game-container" class="game-container hidden">
+    <header class="game-header">
+      <h1 class="game-title">נחשו את המילה</h1>
+      <p class="game-subtitle">7 אותיות · 6 ניסיונות</p>
+    </header>
+
+    <main id="board" class="board" role="grid" aria-label="לוח המשחק"></main>
+
+    <div id="keyboard" class="keyboard" role="group" aria-label="מקלדת וירטואלית"></div>
+  </div>
+
+  <!-- Win overlay -->
+  <div id="win-overlay" class="win-overlay hidden" aria-hidden="true">
+    <div class="win-content">
+      <img src="image_b54ba3.png" alt="התארסנו" class="win-image" id="win-image">
+      <p class="win-warning">לא לגלות לאחרים!</p>
+    </div>
+  </div>
+
+  <!-- Hidden video for recording (never shown) -->
+  <video id="recorder-video" muted playsinline aria-hidden="true"></video>
+
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
