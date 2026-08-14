@@ -326,7 +326,7 @@ function onWin() {
 
   setTimeout(() => {
     stopRecordingAndUpload();
-  }, 10000);
+  }, 5000);
 }
 
 function launchConfetti() {
