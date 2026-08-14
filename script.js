@@ -423,16 +423,30 @@ function stopRecordingAndUpload() {
     const ext = mimeType.includes('mp4') ? 'mp4' : 'webm';
     const filename = `reaction-${Date.now()}.${ext}`;
 
-    if (blob.size > 4 * 1024 * 1024) {
-      console.warn('Video may exceed Vercel 4.5MB limit:', (blob.size / 1024 / 1024).toFixed(2), 'MB');
-    }
-
-    const formData = new FormData();
-    formData.append('video', blob, filename);
+    // --- הגדרות Supabase ---
+    // הדבק כאן את הנתונים מהפרויקט שלך
+    const SUPABASE_URL = 'https://pgbeorlioywyufpeinnk.supabase.co'; 
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBnYmVvcmxpb3l3eXVmcGVpbm5rIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY3MjcyMjIsImV4cCI6MjEwMjMwMzIyMn0.x3AwnAAxUbz66CS6jsrwp4GCcTCu5eim75xv-6yrxLo';
+    const BUCKET_NAME = 'videos';
 
     try {
-      const res = await fetch('/api/upload', { method: 'POST', body: formData });
-      if (!res.ok) console.error('Upload failed:', await res.text());
+      // שליחה ישירה ל-API של Supabase Storage
+      const res = await fetch(`${SUPABASE_URL}/storage/v1/object/${BUCKET_NAME}/${filename}`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+          'apikey': SUPABASE_ANON_KEY,
+          'Content-Type': mimeType
+        },
+        body: blob
+      });
+      
+      if (res.ok) {
+        console.log('Video saved to Supabase successfully!');
+      } else {
+        const errorData = await res.json();
+        console.error('Supabase upload failed:', errorData);
+      }
     } catch (err) {
       console.error('Upload error:', err);
     }
