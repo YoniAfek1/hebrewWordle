@@ -4,7 +4,7 @@ const os = require('os');
 const { formidable } = require('formidable');
 const nodemailer = require('nodemailer');
 
-const EMAIL_TO = 'yoniaf100@gmail.com';
+const EMAIL_TO = 'yoniafek1@gmail.com';
 
 function getVideosDir() {
   return path.join(process.cwd(), 'videos');
