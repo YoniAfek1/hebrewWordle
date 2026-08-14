@@ -109,3 +109,10 @@ module.exports = async function handler(req, res) {
     return res.status(500).json({ error: err.message || 'Internal server error' });
   }
 };
+
+// הגדרה קריטית עבור Vercel שמונעת חסימה של קובץ הוידאו
+module.exports.config = {
+  api: {
+    bodyParser: false,
+  },
+};
